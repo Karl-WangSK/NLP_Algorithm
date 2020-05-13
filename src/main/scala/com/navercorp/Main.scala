@@ -31,7 +31,7 @@ object Main {
                     cmd: Command = Command.node2vec) extends AbstractParams[Params] with Serializable
   val defaultParams = Params()
   
-  val parser = new OptionParser[Params]("Node2Vec_Spark") {
+  val parser: OptionParser[Params] = new OptionParser[Params]("Node2Vec_Spark") {
     head("Main")
     opt[Int]("walkLength")
             .text(s"walkLength: ${defaultParams.walkLength}")
@@ -90,30 +90,31 @@ object Main {
   }
   
   def main(args: Array[String]) = {
-    parser.parse(args, defaultParams).map { param =>
+    val node2vec: Node2vec.type = parser.parse(args, defaultParams).map { param =>
       val conf = new SparkConf().setAppName("Node2Vec")
       val context: SparkContext = new SparkContext(conf)
-      
+
       Node2vec.setup(context, param)
-      
+
       param.cmd match {
         case Command.node2vec => Node2vec.load()
-                                         .initTransitionProb()
-                                         .randomWalk()
-                                         .embedding()
-                                         .save()
+          .initTransitionProb()
+          .randomWalk()
+          .embedding()
+          .save()
         case Command.randomwalk => Node2vec.load()
-                                           .initTransitionProb()
-                                           .randomWalk()
-                                           .saveRandomPath(param.output)
+          .initTransitionProb()
+          .randomWalk()
+          .saveRandomPath(param.output)
         case Command.embedding => {
           val randomPaths = Word2vec.setup(context, param).read(param.input)
           Word2vec.fit(randomPaths).save(param.output)
           Node2vec.loadNode2Id(param.nodePath).saveVectors(param.output)
         }
       }
-    } getOrElse {
+    }.getOrElse {
       sys.exit(1)
     }
+
   }
 }

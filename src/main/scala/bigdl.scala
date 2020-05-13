@@ -306,9 +306,8 @@ class bigdl {
   def infer(rdd:RDD[String]):RDD[Integer] = {
       return rdd.map( x => x.hashCode())
   }
-  def train()
-  {
-    val textClassification = new TextClassifier()
+  def train() {
+//    val textClassification = new TextClassifier()
     textClassification.train()
   }
   def load()
