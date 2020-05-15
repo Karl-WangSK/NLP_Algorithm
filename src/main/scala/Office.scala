@@ -1,17 +1,17 @@
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.SparkConf
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.rdd.RDD
-import org.apache.poi.POIXMLDocument;
-import org.apache.poi.POIXMLTextExtractor;
-import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.POIXMLDocument
+import org.apache.poi.POIXMLTextExtractor
+import org.apache.poi.openxml4j.opc.OPCPackage
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor
 import org.apache.log4j.Logger
 
 class Office(spark: SparkSession) {
   @transient lazy val log = Logger.getLogger(this.getClass)
-  val sc = spark.sparkContext
+  val sc: SparkContext = spark.sparkContext
   def openWord(path: String*) = {
-    val pathRDD = sc.parallelize(path)
+    val pathRDD: RDD[String] = sc.parallelize(path)
     pathRDD.map { x =>
       val opcPackage = POIXMLDocument.openPackage(x);
       val extractor = new XWPFWordExtractor(opcPackage);
@@ -41,4 +41,14 @@ object Office {
         .load("test.xlsx")
     df.show()
   }
+  def main(args: Array[String]): Unit = {
+    val spark =  SparkSession.builder()
+      .appName("test")
+      .master("local[2]")
+      .getOrCreate()
+    val office = Office(spark)
+    office.sc
+  }
 }
+
+
