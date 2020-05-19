@@ -71,5 +71,6 @@ object LSH
     brpmodel.approxSimilarityJoin(vectorizedDf, vectorizedDf, threshold).show()
     //brpmodel.approxNearestNeighbors(vectorizedDf, key, k).show()
 
+
   }
 }
