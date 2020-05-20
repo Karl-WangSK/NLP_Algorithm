@@ -16,5 +16,6 @@ object LPA {
     clique1Labels.foreach(println)
     val clique2Labels = labels.vertices.filter(_._1 >= n).map(_._2).collect.toArray
     clique2Labels.foreach(println)
+
   }
 }
