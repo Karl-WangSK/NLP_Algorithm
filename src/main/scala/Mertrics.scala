@@ -19,6 +19,5 @@ object Metrics {
     println("Confusion matrix:")
     println(metrics.confusionMatrix)
 
-
   }
 }
