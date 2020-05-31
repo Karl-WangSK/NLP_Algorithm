@@ -24,7 +24,8 @@ object Word2vec extends Serializable {
     val word2vecWindowField = word2vec.getClass.getDeclaredField("org$apache$spark$mllib$feature$Word2Vec$$window")
     word2vecWindowField.setAccessible(true)
     word2vecWindowField.setInt(word2vec, param.window)
-    
+
+
     this
   }
   
