@@ -94,16 +94,17 @@ class TfIdf(config: TfIdfConfig = TfIdfConfig()) extends Serializable {
 
 object TfIdf {
   def apply(documentColumn: String = "document",
-               docIdColumn: String = "doc_id",
-               tokenColumn: String = "token",
-               tfColumn: String = "tf",
-               dfColumn: String = "df",
-               idfColumn: String = "idf",
-               tfIdfColumn: String = "tf_idf" ): TfIdf = {
-     val config = TfIdfConfig(documentColumn,
+            docIdColumn: String = "doc_id",
+            tokenColumn: String = "token",
+            tfColumn: String = "tf",
+            dfColumn: String = "df",
+            idfColumn: String = "idf",
+            tfIdfColumn: String = "tf_idf"): TfIdf = {
+    val config = TfIdfConfig(documentColumn,
       docIdColumn, tokenColumn, tfColumn, dfColumn, idfColumn, tfIdfColumn)
-     return new TfIdf(config)
+    return new TfIdf(config)
   }
+
   def unittest(spark: SparkSession) = {
     import spark.implicits._
     val sample = Seq(
@@ -119,6 +120,28 @@ object TfIdf {
     val unfoldDocs = TfIdf().unfoldDocs(docWithId)
     tfIdf.genTfIdfbyUnfoldedDoc(unfoldDocs).show()
 
+    /**
+      * documentColumn: String = "document",
+      * docIdColumn: String = "doc_id",
+      * tokenColumn: String = "token",
+      * tfColumn: String = "tf",
+      * dfColumn: String = "df",
+      * idfColumn: String = "idf",
+      * tfIdfColumn: String = "tf_idf"
+      */
+    val idf: TfIdf = TfIdf()
+    idf.genTfIdfbyDoc(sample).show()
+
+  }
+
+  def main(args: Array[String]): Unit = {
+    val spark: SparkSession = SparkSession
+      .builder()
+      .master("local[2]")
+      .appName("tfidf")
+      .getOrCreate()
+
+    unittest(spark)
   }
 }
 
