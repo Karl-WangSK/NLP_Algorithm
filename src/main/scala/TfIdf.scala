@@ -1,8 +1,7 @@
 import java.io.Serializable
 
-import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.{Column, DataFrame, SparkSession}
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.SparkSession
 
 
 case class TfIdfConfig(
@@ -69,6 +68,7 @@ class TfIdf(config: TfIdfConfig = TfIdfConfig()) extends Serializable {
   protected def unfoldDocs(documents: DataFrame): DataFrame = {
     val columns = documents.columns.map(col) :+
       (explode(col(config.documentColumn)) as config.tokenColumn)
+
     documents.select(columns: _*)
   }
 
@@ -118,6 +118,10 @@ object TfIdf {
 
     val docWithId = TfIdf().addDocId(sample)
     val unfoldDocs = TfIdf().unfoldDocs(docWithId)
+    unfoldDocs.show()
+    val columns: Array[Column] = docWithId.columns.map(col):+(explode(col(config.documentColumn)) as "sss")
+    docWithId.show()
+    docWithId.select(columns:_*).show()
     tfIdf.genTfIdfbyUnfoldedDoc(unfoldDocs).show()
 
     /**
