@@ -1,8 +1,9 @@
 package com.navercorp
 
 import java.io.Serializable
-import org.apache.spark.{SparkContext, SparkConf}
-import scopt.OptionParser
+
+import org.apache.spark.{SparkConf, SparkContext}
+import scopt.{OptionParser, Read}
 import com.navercorp.lib.AbstractParams
 
 object Main {
@@ -30,7 +31,7 @@ object Main {
                     output: String = null,
                     cmd: Command = Command.node2vec) extends AbstractParams[Params] with Serializable
   val defaultParams = Params()
-  
+
   val parser: OptionParser[Params] = new OptionParser[Params]("Node2Vec_Spark") {
     head("Main")
     opt[Int]("walkLength")
