@@ -207,6 +207,17 @@
             <artifactId>arangodb-spark-connector</artifactId>
             <version>1.0.8-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4</artifactId>
+            <version>4.7</version>
+        </dependency>
+
 
         <!--"databricks" %% "spark-corenlp" % "0.3.2-SNAPSHOT" classifier "assembly",-->
         <!--"com.arangodb" % "arangodb-spark-connector" % "1.0.8-SNAPSHOT",-->
