@@ -306,14 +306,12 @@ class bigdl {
   def infer(rdd:RDD[String]):RDD[Integer] = {
       return rdd.map( x => x.hashCode())
   }
+
   def train() {
 //    val textClassification = new TextClassifier()
     textClassification.train()
   }
-  def load()
-  {
-    
-  }
+
 }
   
 object bigdl {
@@ -322,10 +320,8 @@ object bigdl {
   Logger4j.getLogger("com.intel.analytics.bigdl.optim").setLevel(Levle4j.INFO)
 
   def unittest() = {
-
     val textClassification = new TextClassifier()
     textClassification.train()
-    
   }
 
   def main(args: Array[String]): Unit = {
