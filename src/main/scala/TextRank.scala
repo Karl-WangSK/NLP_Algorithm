@@ -1,12 +1,9 @@
+import com.huaban.analysis.jieba.JiebaSegmenter
+import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SparkSession
 
 import scala.collection.mutable
-import org.apache.spark.rdd.RDD
-
 import scala.util.control.Breaks._
-import com.huaban.analysis.jieba.JiebaSegmenter
-import com.huaban.analysis.jieba.JiebaSegmenter.SegMode
-import Jieba.jieba
 
 object TextRankWordSet extends Serializable{
 
@@ -92,7 +89,6 @@ class TextRankKeyword extends Serializable{
 }
 
 object TextRank {
-  import scala.collection.JavaConversions._
   import scala.collection.JavaConverters._
   //使用pageRand算法计算句子排名----计算单个句子的得分
   def pageRank(board:Array[Array[Double]],ranks:Array[Double],num:Int): Double ={
