@@ -124,6 +124,7 @@ object TfIdf {
     docWithId.select(columns:_*).show()
     tfIdf.genTfIdfbyUnfoldedDoc(unfoldDocs).show()
 
+
     /**
       * documentColumn: String = "document",
       * docIdColumn: String = "doc_id",
