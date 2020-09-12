@@ -58,6 +58,7 @@ class TextRankKeyword extends Serializable{
     })
   }
 
+
   def rank(document: mutable.HashMap[String, mutable.HashSet[String]]): mutable.HashMap[String, Double] = {
     var score = mutable.HashMap.empty[String, Double]
     breakable {
