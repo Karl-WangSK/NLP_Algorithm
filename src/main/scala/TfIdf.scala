@@ -124,7 +124,6 @@ object TfIdf {
     docWithId.select(columns:_*).show()
     tfIdf.genTfIdfbyUnfoldedDoc(unfoldDocs).show()
 
-
     /**
       * documentColumn: String = "document",
       * docIdColumn: String = "doc_id",
@@ -136,7 +135,6 @@ object TfIdf {
       */
     val idf: TfIdf = TfIdf()
     idf.genTfIdfbyDoc(sample).show()
-
   }
 
   def main(args: Array[String]): Unit = {
